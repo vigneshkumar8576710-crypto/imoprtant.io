@@ -10,7 +10,7 @@
             --blue: #8be9fd;
             --dark: #050505;
             --gray: #6272a4;
-            --red: #ff5555; /* Added red for the reject button */
+            --red: #ff5555;
         }
 
         body { 
@@ -45,7 +45,6 @@
             line-height: 1.6;
         }
 
-        /* Base Button Style */
         .btn {
             background: none;
             border: 1px solid var(--green);
@@ -61,7 +60,6 @@
 
         .btn:hover { background: var(--green); color: var(--dark); }
 
-        /* Reject Button Style */
         .reject-btn { border-color: var(--red); color: var(--red); }
         .reject-btn:hover { background: var(--red); color: #fff; }
 
@@ -86,9 +84,8 @@
         .heart { color: var(--red); font-weight: bold; }
         .timestamp { color: #333; font-size: 0.7rem; margin-top: 40px; display: block; }
 
-        /* Decision Container */
         #decision-container {
-            display: none; /* Hidden until typing ends */
+            display: none; 
             margin-top: 40px;
             text-align: center;
             border-top: 1px solid #222;
@@ -97,15 +94,17 @@
     </style>
 </head>
 <body>
+
 <audio id="bg-music" loop>
-    <source src="hello_bgm.mp3" type="audio/mpeg">
+    <source src="hello_bgm.webm" type="audio/webm">
 </audio>
+
     <div class="terminal">
         <div id="precaution-screen">
             <p class="warning-text">
-                [Adivice]<br>
+                [Advice]<br>
                 Please ensure you are alone and in a quiet space.<br>
-                Stay until the connection is complete.
+                Stay until the connection is complete.<br>
                 Don't go out or leave the page until it completes.
             </p>
             <button class="btn" onclick="initiateConnection()">I AM ALONE. CONTINUE.</button>
@@ -125,19 +124,19 @@
     </div>
 
     <script>
-        const fullStory = `It started with a transition. From CBSE to Matriculation. That was the first time I saw you. I told myself it was just a "new face," but the feeling was different. I stayed silent for so long, watching from a distance, because my <span class="highlight">fear</span> was a background process I couldn't kill. 
+        const fullStory = `It started with a transition. From CBSE to Matriculation. That was the first time I saw you. I told myself it was just a "new face," but the feeling was different. I stayed silent for so long, watching from a distance, because my <span class="highlight">fear</span> was a background process I couldn't kill. 
 
 I remember your pain—the hot water wounds. I sat behind you, feeling the weight of it, but my fear kept me paralyzed. I came to summer classes for two reasons: to study, and to find you.
 
-The school needed decorating. I came every day, not for the walls, but for you. Then came that Sunday. We finally spoke. I was a wreck of nerves, so I teased you because I didn't know how to be real. That lunch break changed everything. You said: <span class="highlight">"Vignesh, I thought you were a rude guy with an attitude..."</span> You finally saw that I wasn't mean—I was just afraid. 
+The school needed decorating. I came every day, not for the walls, but for you. Then came that Sunday. We finally spoke. I was a wreck of nerves, so I teased you because I didn't know how to be real. That lunch break changed everything. You said: <span class="highlight">"Vignesh, I thought you were a rude guy with an attitude..."</span> You finally saw that I wasn't mean—I was just afraid. 
 
 During dance practice, I watched every move. I corrected your steps not to be rude, but because I couldn't stand the thought of you failing on stage. I wanted you to shine.
 
 Then came May 6th. The farewell morning. I saw you were struggling with your leg. I wanted to help stop the pain, but I saw you were afraid, so I stepped back. At the music desk, when you told me you forgot the steps, I tried to support you, but I failed. When we finally had dinner, and you told me the drink was for both of us... that was the highlight of my day. And that <span class="highlight">Center Fresh</span>... it meant more to me than you might know.
 
-I've spent a long time letting fear win. When Jeevana asked me if I had a crush, I said "No" because I was overthinking. But the truth is simpler than code. I'm telling you this now because you are kind and you have a <span class="highlight">good heart</span>. 
+I've spent a long time letting fear win. When Jeevana asked me if I had a crush, I said "No" because I was overthinking. But the truth is simpler than code. I'm telling you this now because you are kind and you have a <span class="highlight">good heart</span>. 
 
-If you accept this, it will be the greatest memory of my life. Not just because I love you, but because I will finally have one soul to share all my happiness and sadness with. 
+If you accept this, it will be the greatest memory of my life. Not just because I love you, but because I will finally have one soul to share all my happiness and sadness with. 
 
 And if you reject me, I will feel bad, but I will go back to watching you in silence, respecting the peace you brought into my life and Remember that I will Love you as you are my first Love .
 
@@ -152,31 +151,28 @@ want to tell you that...
         let index = 0;
         const speed = 55;
 
+        // MERGED AND CORRECTED FUNCTION
         function initiateConnection() {
+            // Start Music
+            const music = document.getElementById("bg-music");
+            music.volume = 0;
+            music.play().catch(e => console.log("Audio playback blocked or file missing"));
+            
+            // Smooth Fade-in
+            let fadeIn = setInterval(() => {
+                if (music.volume < 0.4) {
+                    music.volume += 0.05;
+                } else {
+                    clearInterval(fadeIn);
+                }
+            }, 200);
+
+            // Transition Screens
             document.getElementById("precaution-screen").style.display = "none";
             document.getElementById("story-screen").style.display = "block";
             setTimeout(typeWriter, 1000);
         }
-function initiateConnection() {
-    // Start Music
-    const music = document.getElementById("bg-music");
-    music.volume = 0;
-    music.play().catch(e => console.log("Audio playback blocked or file missing"));
-    
-    // Smooth Fade-in
-    let fadeIn = setInterval(() => {
-        if (music.volume < 0.4) {
-            music.volume += 0.05;
-        } else {
-            clearInterval(fadeIn);
-        }
-    }, 200);
 
-    // Transition Screens
-    document.getElementById("precaution-screen").style.display = "none";
-    document.getElementById("story-screen").style.display = "block";
-    setTimeout(typeWriter, 1000);
-}
         function typeWriter() {
             if (index < fullStory.length) {
                 if (fullStory.substring(index, index + 1) === '<') {
@@ -201,7 +197,6 @@ function initiateConnection() {
 
                 setTimeout(typeWriter, currentDelay);
             } else {
-                // ADDED THIS PART: Show buttons and hide cursor when done
                 document.getElementById("main-cursor").style.display = "none";
                 document.getElementById("decision-container").style.display = "block";
             }
