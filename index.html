@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incoming Transmission | VKNOVA</title>
+    <style>
+        :root {
+            --green: #50fa7b;
+            --blue: #8be9fd;
+            --dark: #050505;
+            --gray: #6272a4;
+            --red: #ff5555; /* Added red for the reject button */
+        }
+
+        body { 
+            background-color: var(--dark); 
+            color: #d1d1d1; 
+            font-family: 'Courier New', monospace; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 20px; 
+            overflow-x: hidden;
+        }
+
+        .terminal { 
+            max-width: 650px; 
+            width: 100%; 
+            background: #0d0d0d; 
+            padding: 35px; 
+            border-radius: 4px; 
+            border: 1px solid #1a1a1a; 
+            box-shadow: 0 0 40px rgba(80, 250, 123, 0.05); 
+        }
+
+        #precaution-screen { text-align: center; }
+
+        .warning-text {
+            color: var(--blue);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Base Button Style */
+        .btn {
+            background: none;
+            border: 1px solid var(--green);
+            color: var(--green);
+            padding: 12px 30px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: 0.3s;
+            margin: 10px;
+            border-radius: 4px;
+        }
+
+        .btn:hover { background: var(--green); color: var(--dark); }
+
+        /* Reject Button Style */
+        .reject-btn { border-color: var(--red); color: var(--red); }
+        .reject-btn:hover { background: var(--red); color: #fff; }
+
+        #story-screen { display: none; }
+        .command { color: var(--green); font-weight: bold; margin-bottom: 5px; }
+        .log { color: var(--gray); font-size: 0.8rem; margin-bottom: 25px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        
+        #text-content { line-height: 1.9; white-space: pre-wrap; display: inline; font-size: 1.05rem; }
+
+        .cursor { 
+            display: inline-block; 
+            width: 8px; 
+            height: 18px; 
+            background-color: var(--green); 
+            margin-left: 5px; 
+            animation: blink 1s infinite; 
+            vertical-align: middle; 
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+        .highlight { color: var(--blue); font-weight: bold; }
+        .heart { color: var(--red); font-weight: bold; }
+        .timestamp { color: #333; font-size: 0.7rem; margin-top: 40px; display: block; }
+
+        /* Decision Container */
+        #decision-container {
+            display: none; /* Hidden until typing ends */
+            margin-top: 40px;
+            text-align: center;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal">
+        <div id="precaution-screen">
+            <p class="warning-text">
+                [Adivice]<br>
+                Please ensure you are alone and in a quiet space.<br>
+                Stay until the connection is complete.
+                Don't go out or leave the page until it completes.
+            </p>
+            <button class="btn" onclick="initiateConnection()">I AM ALONE. CONTINUE.</button>
+        </div>
+
+        <div id="story-screen">
+            <p class="command">> vknova --stream-truth</p>
+            <p class="log">[ESTABLISHING SECURE HANDSHAKE... SUCCESS]</p>
+            <div id="text-content"></div><span class="cursor" id="main-cursor"></span>
+            
+            <div id="decision-container">
+                <button class="btn" onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank')">I ACCEPT</button>
+                <button class="btn reject-btn" onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank')">I REJECT</button>
+            </div>
+            <span class="timestamp">TERMINAL_ID: VIGNESH_K | STATUS: EXECUTING_MEMORIES</span>
+        </div>
+    </div>
+
+    <script>
+        const fullStory = `It started with a transition. From CBSE to Matriculation. That was the first time I saw you. I told myself it was just a "new face," but the feeling was different. I stayed silent for so long, watching from a distance, because my <span class="highlight">fear</span> was a background process I couldn't kill. 
+
+I remember your pain—the hot water wounds. I sat behind you, feeling the weight of it, but my fear kept me paralyzed. I came to summer classes for two reasons: to study, and to find you.
+
+The school needed decorating. I came every day, not for the walls, but for you. Then came that Sunday. We finally spoke. I was a wreck of nerves, so I teased you because I didn't know how to be real. That lunch break changed everything. You said: <span class="highlight">"Vignesh, I thought you were a rude guy with an attitude..."</span> You finally saw that I wasn't mean—I was just afraid. 
+
+During dance practice, I watched every move. I corrected your steps not to be rude, but because I couldn't stand the thought of you failing on stage. I wanted you to shine.
+
+Then came May 6th. The farewell morning. I saw you were struggling with your leg. I wanted to help stop the pain, but I saw you were afraid, so I stepped back. At the music desk, when you told me you forgot the steps, I tried to support you, but I failed. When we finally had dinner, and you told me the drink was for both of us... that was the highlight of my day. And that <span class="highlight">Center Fresh</span>... it meant more to me than you might know.
+
+I've spent a long time letting fear win. When Jeevana asked me if I had a crush, I said "No" because I was overthinking. But the truth is simpler than code. I'm telling you this now because you are kind and you have a <span class="highlight">good heart</span>. 
+
+If you accept this, it will be the greatest memory of my life. Not just because I love you, but because I will finally have one soul to share all my happiness and sadness with. 
+
+And if you reject me, I will feel bad, but I will go back to watching you in silence, respecting the peace you brought into my life.
+
+Hey... 
+Deekishik I...
+want to tell you that... 
+
+<span class="heart">I love you.</span>
+- Vignesh`;
+
+        const display = document.getElementById("text-content");
+        let index = 0;
+        const speed = 55;
+
+        function initiateConnection() {
+            document.getElementById("precaution-screen").style.display = "none";
+            document.getElementById("story-screen").style.display = "block";
+            setTimeout(typeWriter, 1000);
+        }
+
+        function typeWriter() {
+            if (index < fullStory.length) {
+                if (fullStory.substring(index, index + 1) === '<') {
+                    let endTag = fullStory.indexOf('>', index) + 1;
+                    if (fullStory.substring(index, index + 5) === '<span') {
+                        endTag = fullStory.indexOf('</span>', index) + 7;
+                    }
+                    display.innerHTML += fullStory.substring(index, endTag);
+                    index = endTag;
+                } else {
+                    display.innerHTML += fullStory.charAt(index);
+                    index++;
+                }
+                
+                let currentDelay = speed;
+                const char = fullStory.charAt(index - 1);
+                if (char === '.' || char === '?' || char === '!') {
+                    currentDelay = 800;
+                } else if (char === ',') {
+                    currentDelay = 300;
+                }
+
+                setTimeout(typeWriter, currentDelay);
+            } else {
+                // ADDED THIS PART: Show buttons and hide cursor when done
+                document.getElementById("main-cursor").style.display = "none";
+                document.getElementById("decision-container").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
